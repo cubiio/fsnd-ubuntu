@@ -44,3 +44,16 @@ File and path `/etc/apache2/sites-available/FlaskApp.conf`
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
+
+File `flaskapp.wsgi` in path `/var/www/FlaskApp`
+
+``` python
+#!/usr/bin/python
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0,"/var/www/FlaskApp/")
+
+from FlaskApp import app as application
+application.secret_key = 'Add your secret key'
+```
