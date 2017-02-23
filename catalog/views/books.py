@@ -12,11 +12,11 @@ from flask import session as login_session
 from sqlalchemy import asc
 
 # Helpers
-from catalog.forms import BookForm
-from catalog.decorators import login_required
+from FlaskApp.forms import BookForm
+from FlaskApp.decorators import login_required
 
 # Db
-from catalog.database import db_session, Category, Book
+from FlaskApp.database import db_session, Category, Book
 # [END Imports]
 
 

@@ -17,7 +17,7 @@ import httplib2
 import requests
 import json
 
-from catalog.userhelp import get_user_id, create_user
+from FlaskApp.userhelp import get_user_id, create_user
 # [END Imports]
 
 
@@ -25,7 +25,7 @@ user_admin = Blueprint('user_admin', __name__)
 
 
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/FlaskApp/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Book Catalogue App"
 
 
@@ -53,7 +53,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets('/var/www/FlaskApp/client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:

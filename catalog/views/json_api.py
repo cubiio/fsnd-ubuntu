@@ -6,7 +6,7 @@ API JSON endpoints
 from flask import Blueprint, jsonify
 
 # Db
-from catalog.database import db_session, Category, Book
+from FlaskApp.database import db_session, Category, Book
 # [END Imports]
 
 

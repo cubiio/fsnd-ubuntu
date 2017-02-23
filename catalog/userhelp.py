@@ -3,7 +3,7 @@ Helper methods with creating users and getting user info
 """
 
 # [START Imports]
-from catalog.database import db_session, User
+from FlaskApp.database import db_session, User
 # [END Imports]
 
 

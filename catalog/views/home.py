@@ -12,7 +12,7 @@ from flask import Blueprint, render_template
 from sqlalchemy import asc, desc
 
 # Db
-from catalog.database import db_session, Category, Book
+from FlaskApp.database import db_session, Category, Book
 # [END Imports]
 
 
