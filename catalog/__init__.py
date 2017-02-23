@@ -13,3 +13,6 @@ app.register_blueprint(category_admin)
 app.register_blueprint(book_admin)
 app.register_blueprint(api_admin)
 app.register_blueprint(user_admin)
+
+# if __name__ == "__main__":
+#     app.run()
