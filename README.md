@@ -4,7 +4,7 @@
 
 This is a clone of this project - [GitHub - Item Catalog built with Python Flask](https://github.com/cubiio/fsnd-item_catalog) - hosted on a Linux Ubuntu server with [Amazon LightSail](https://amazonlightsail.com/).
 
-This README includes the following information:
+This **README** includes the following information:
 
 - IP address, URL and ssh details
 - Software installed
@@ -18,7 +18,7 @@ IP:     107.23.89.190
 
 URL:    [Book Catalogue App](http://107.23.89.190/)
 
-`ssh grader@107.23.89.190 -p 2200 -i ~/.ssh/udacityLinux`
+SSH:    `ssh grader@107.23.89.190 -p 2200 -i ~/.ssh/udacityLinux`
 
 
 
@@ -175,7 +175,9 @@ To                         Action      From
 $ sudo nano /etc/ssh/sshd_config
 
 ############ WARNING !!!!! #################
-# Add/remove ports but be careful to only disable port 20 once you KNOW you can ssh in to the server on the new port. The LightSail console only listens to port 20 so once this port is disabled, the console is no longer able to connect.
+# Add/remove ports but be careful to only disable port 20 once you KNOW 
+# you can ssh in to the server on the new port. The LightSail console only 
+# listens to port 20 so once this port is disabled, the console is no longer able to connect.
 
 # In the file add port 2200 for ssh, save and exit
 # Logout, then attempt to ssh in on port 2200
