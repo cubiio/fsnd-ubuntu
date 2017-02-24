@@ -15,9 +15,8 @@ This README includes the following information:
 ## IP address, URL and ssh details
 
 IP:     107.23.89.190
-URL:    [Book Catalogue App](http://107.23.89.190/)
 
-ssh grader@107.23.89.190 -p 22 -i ~/.ssh/udacityLinux
+URL:    [Book Catalogue App](http://107.23.89.190/)
 
 `ssh grader@107.23.89.190 -p 2200 -i ~/.ssh/udacityLinux`
 
@@ -27,7 +26,7 @@ ssh grader@107.23.89.190 -p 22 -i ~/.ssh/udacityLinux
 
 ### Ubuntu
 
-[Ubuntu – Ubuntu Packages Search](http://packages.ubuntu.com/)
+Packages found via [Ubuntu – Ubuntu Packages Search](http://packages.ubuntu.com/)
 
 - Finger
 - Apache2
@@ -112,7 +111,6 @@ Ran these commands to update and upgrade:
 $ sudo apt-get update
 
 $ sudo apt-get upgrade
-
 ```
 
 ### Locale
@@ -124,15 +122,78 @@ Language set to `LANG=en_US.UTF-8` (due to some error messages when trying to in
 ### Uncomplicated Firewall config
 
 ```
+# approach: define rules, then set to active
+
+# set default to deny all incoming connections
+$ sudo ufw default deny incoming
+
+# set default to allow all outgoing connections
+$ sudo ufw default allow outgoing
+
+# allow ssh connections for admin
+$ sudo ufw allow ssh
+
+# Allow connections for ssh, HTTP, and NTP:
+
+$ sudo ufw allow 2200
+
+$ sudo ufw allow 123
+
+$ sudo ufw allow 80
+
+# allow http 
+$ sudo ufw allow www
+
+# enable the firewall
+$ sudo ufw enable
+
+# verify config and status (see example below)
+$ sudo ufw status
+```
+
+```
+grader@ip-172-26-2-210:~$ sudo ufw status
+Status: active
+
 To                         Action      From
 --                         ------      ----
-22                         ALLOW       Anywhere                  
-2200/tcp                   ALLOW       Anywhere                  
-80/tcp                     ALLOW       Anywhere                  
-22 (v6)                    ALLOW       Anywhere (v6)             
-2200/tcp (v6)              ALLOW       Anywhere (v6)             
-80/tcp (v6)                ALLOW       Anywhere (v6) 
-123/tcp (v6)                    ALLOW         Anywhere (v6) 
+22                         ALLOW       Anywhere
+2200                       ALLOW       Anywhere
+80                         ALLOW       Anywhere
+80/tcp                     ALLOW       Anywhere
+123                        ALLOW       Anywhere
+22 (v6)                    ALLOW       Anywhere (v6)
+2200 (v6)                  ALLOW       Anywhere (v6)
+80 (v6)                    ALLOW       Anywhere (v6)
+80/tcp (v6)                ALLOW       Anywhere (v6)
+123 (v6)                   ALLOW       Anywhere (v6)
+```
+
+### sshd_config
+
+```
+$ sudo nano /etc/ssh/sshd_config
+
+############ WARNING !!!!! #################
+# Add/remove ports but be careful to only disable port 20 once you KNOW you can ssh in to the server on the new port. The LightSail console only listens to port 20 so once this port is disabled, the console is no longer able to connect.
+
+# In the file add port 2200 for ssh, save and exit
+# Logout, then attempt to ssh in on port 2200
+# If it works, it is safe to disable port 22
+
+# changes take affect after a restart of the ssh service
+$ sudo service ssh restart
+
+# Settings: To disable root login
+
+# Change from:
+PermitRootLogin prohibit-password
+# Change to:
+PermitRootLogin no
+
+# Settings: enforce ssh
+# Change to no to disable tunnelled clear text passwords
+PasswordAuthentication no
 ```
 
 
@@ -268,6 +329,5 @@ engine = create_engine(
 - [How to disable directory listing in apache? | My Web Experiences](http://www.mywebexperiences.com/2013/05/20/how-to-disable-directory-listing-in-apache/)
 - [How To Configure the Apache Web Server on an Ubuntu or Debian VPS | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps)
 - [Linux directory structure](http://www.thegeekstuff.com/2010/09/linux-file-system-structure)
-- [12.04 - How to move one file to a folder using terminal? - Ask Ubuntu](https://askubuntu.com/questions/465877/how-to-move-one-file-to-a-folder-using-terminal#465881)
 - [12.04 - How to move one file to a folder using terminal? - Ask Ubuntu](https://askubuntu.com/questions/465877/how-to-move-one-file-to-a-folder-using-terminal#465881)
 
