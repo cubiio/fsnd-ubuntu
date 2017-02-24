@@ -2,7 +2,9 @@
 
 ## About this project
 
-This is a clone of this project - [GitHub - Item Catalog built with Python Flask](https://github.com/cubiio/fsnd-item_catalog) - hosted on a Linux Ubuntu server with [Amazon LightSail](https://amazonlightsail.com/).
+This repo contains the code and config for this Book Catalog App, built using Python Flask, to run on a Linux Ubuntu server with  Apache2, hosted on a Virtual Private Server with [Amazon LightSail](https://amazonlightsail.com/).
+
+This is a clone of this project - [GitHub - Item Catalog built with Python Flask](https://github.com/cubiio/fsnd-item_catalog).
 
 This **README** includes the following information:
 
@@ -93,7 +95,7 @@ Also, database called catalog created with owner (user) catalog
 ``` 
 # psql
 
-CREATE USER catalog WITH PASSWORD ‘dbpswd’;
+CREATE USER catalog WITH PASSWORD ‘password’;
 
 ALTER USER catalog CREATEDB;
 
