@@ -38,11 +38,23 @@ Packages found via [Ubuntu – Ubuntu Packages Search](http://packages.ubuntu.co
 
 ### Python Packages
 
+Install `virtualenv`:
+
+```bash
+$ sudo pip install virtualenv
 ```
+
+Create a virtual environment for Python packages:
+
+```bash
+$ sudo virtualenv venv
+```
+
+Then install Python packages using the `requirements.txt` file:
+```bash
 $ source venv/bin/activate
 $ sudo pip install -r requirements.txt
 ```
-
 
 ```
 # file: requirements.txt
@@ -62,8 +74,7 @@ Werkzeug==0.11.15
 WTForms==2.1
 ```
 
-
-And these:
+Not sure why (for later investigation) but these didn't install from the `requirements.txt` file as they weren't captured when I did ran the `pip freeze > requirements.txt` command. 
 
 - oauth2client
 - requests
@@ -216,10 +227,11 @@ This tutorial is amazing 👍  [How To Deploy a Flask Application on an Ubuntu V
 |----------------flaskapp.wsgi
 ```
 
-For this repo:
+This repo should be placed/moved into `/var/www/FlaskApp` i.e.
 
 - Replace `/fsnd-ubuntu` with `/FlaskApp`
-- Replace `/catalog` with `/FlaskApp` i.e. `/FlaskApp/FlaskApp`
+
+If cloning directly in, ensure content such as `.git` dir is not available in the browser. I cloned the directory into another location, then moved the required content into the correct places.
 
 
 **Example code:**
