@@ -34,6 +34,7 @@ Packages found via [Ubuntu – Ubuntu Packages Search](http://packages.ubuntu.co
 - postgresql
 - python-psycopg2
 - python pip
+- fail2ban
 
 
 ### Python Packages
@@ -56,7 +57,7 @@ $ source venv/bin/activate
 $ sudo pip install -r requirements.txt
 ```
 
-```
+```python
 # file: requirements.txt
 
 appdirs==1.4.0
@@ -101,7 +102,7 @@ Created `catalog` user, with permissions:
 
 Also, database called catalog created with owner (user) catalog
 
-``` 
+```psql
 # psql
 
 CREATE USER catalog WITH PASSWORD ‘password’;
@@ -118,7 +119,7 @@ CREATE DATABASE catalog WITH OWNER catalog;
 
 Ran these commands to update and upgrade:
 
-```
+```bash
 $ sudo apt-get update
 
 $ sudo apt-get upgrade
@@ -132,7 +133,7 @@ Language set to `LANG=en_US.UTF-8` (due to some error messages when trying to in
 
 ### Uncomplicated Firewall config
 
-```
+```bash
 # approach: define rules, then set to active
 
 # set default to deny all incoming connections
@@ -155,29 +156,36 @@ $ sudo ufw allow 80
 # allow http 
 $ sudo ufw allow www
 
+# to delete a rule by rule number
+$ sudo ufw status numbered
+
+# delete the rule number e.g. rule number 1
+$ sudo ufw delete 1 
+
 # enable the firewall
 $ sudo ufw enable
 
 # verify config and status (see example below)
-$ sudo ufw status
+$ sudo ufw status verbose 
 ```
 
 ```
-grader@ip-172-26-2-210:~$ sudo ufw status
+grader@ip-172-26-2-210:~$ sudo ufw status verbose
 Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
 
 To                         Action      From
 --                         ------      ----
-22                         ALLOW       Anywhere
-2200                       ALLOW       Anywhere
-80                         ALLOW       Anywhere
-80/tcp                     ALLOW       Anywhere
-123                        ALLOW       Anywhere
-22 (v6)                    ALLOW       Anywhere (v6)
-2200 (v6)                  ALLOW       Anywhere (v6)
-80 (v6)                    ALLOW       Anywhere (v6)
-80/tcp (v6)                ALLOW       Anywhere (v6)
-123 (v6)                   ALLOW       Anywhere (v6)
+2200                       ALLOW IN    Anywhere
+80                         ALLOW IN    Anywhere
+80/tcp                     ALLOW IN    Anywhere
+123                        ALLOW IN    Anywhere
+2200 (v6)                  ALLOW IN    Anywhere (v6)
+80 (v6)                    ALLOW IN    Anywhere (v6)
+80/tcp (v6)                ALLOW IN    Anywhere (v6)
+123 (v6)                   ALLOW IN    Anywhere (v6)
 ```
 
 ### sshd_config
@@ -207,6 +215,35 @@ PermitRootLogin no
 # Settings: enforce ssh
 # Change to no to disable tunnelled clear text passwords
 PasswordAuthentication no
+
+# restart ssh service again for changes to take affect
+```
+
+
+### fail2ban
+
+Check this excellent fail2ban guide: [How To Protect an Apache Server with Fail2Ban on Ubuntu 14.04 | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-protect-an-apache-server-with-fail2ban-on-ubuntu-14-04)
+
+Summary of steps:
+
+```bash
+# install
+$ sudo apt-get update
+$ sudo apt-get install fail2ban
+
+# copy to jail.local file
+$ sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+
+# edit the jail.local file per the guide
+$ sudo nano /etc/fail2ban/jail.local
+
+# restart the service after config completed
+$ sudo service fail2ban restart
+
+$ sudo fail2ban-client status
+Status
+|- Number of jail:  6
+`- Jail list:   apache-auth, apache-badbots, apache-fakegooglebot, apache-nohome, apache-overflows, sshd
 ```
 
 
@@ -238,7 +275,7 @@ If cloning directly in, ensure content such as `.git` dir is not available in th
 
 File `__init__.py` in path `/var/www/FlaskApp/FlaskApp`
 
-``` python
+```python
 # tutorial code
 from flask import Flask
 app = Flask(__name__)
@@ -249,7 +286,7 @@ if __name__ == "__main__":
     app.run()
 ```
 
-``` python
+```python
 # My FlaskApp code 
 from flask import Flask
 
@@ -277,7 +314,7 @@ File and path `/etc/apache2/sites-available/FlaskApp.conf`
 - change ServerName to site or IP address
 - change ServerAdmin to server admin's email
 
-``` python
+```python
 <VirtualHost *:80>
         ServerName mywebsite.com
         ServerAdmin admin@mywebsite.com
@@ -300,7 +337,7 @@ File and path `/etc/apache2/sites-available/FlaskApp.conf`
 
 Add file `client_secrets.json` in `/var/www/FlaskApp`:
 
-```
+```js
 {
     "web": {
         "client_id": "ADD_CLIENT_ID.apps.googleusercontent.com",
@@ -318,7 +355,7 @@ Add file `client_secrets.json` in `/var/www/FlaskApp`:
 
 Amend the password in `database.py` to match that set for the catalog user:
 
-``` python
+```python
 # Ubuntu, Apache, PostgreSQL config
 engine = create_engine(
     'postgresql+psycopg2://catalog:password@localhost/catalog')
@@ -344,4 +381,9 @@ engine = create_engine(
 - [How To Configure the Apache Web Server on an Ubuntu or Debian VPS | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-configure-the-apache-web-server-on-an-ubuntu-or-debian-vps)
 - [Linux directory structure](http://www.thegeekstuff.com/2010/09/linux-file-system-structure)
 - [12.04 - How to move one file to a folder using terminal? - Ask Ubuntu](https://askubuntu.com/questions/465877/how-to-move-one-file-to-a-folder-using-terminal#465881)
-
+- [How To Set Up a Firewall with UFW on Ubuntu 14.04 | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-14-04)
+- [UFW - Community Help Wiki](https://help.ubuntu.com/community/UFW)
+- [Fail2ban](http://www.fail2ban.org/wiki/index.php/Main_Page)
+- [How To Protect an Apache Server with Fail2Ban on Ubuntu 14.04 | DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-protect-an-apache-server-with-fail2ban-on-ubuntu-14-04)
+- [Glances](https://pypi.python.org/pypi/Glances)
+- [Glances - Documentation](https://glances.readthedocs.io/en/stable/index.html)
