@@ -35,6 +35,19 @@ Packages found via [Ubuntu – Ubuntu Packages Search](http://packages.ubuntu.co
 - python-psycopg2
 - python pip
 - fail2ban
+- glances
+
+
+Note, Glances happens to be written in Python but it is not an application specific package. It should be installed via the Ubuntu package manager e.g.
+
+```bash
+$ sudo apt-get install glances
+```
+
+To run:
+```bash
+$ glances
+```
 
 
 ### Python Packages
