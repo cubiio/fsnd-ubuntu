@@ -12,11 +12,11 @@ This **README** includes the following information:
 - A list of third-party resources used to completed this project
 
 
-## IP address, URL and ssh details
+## IP address and ssh details
+
+Note, server is no longer online so these details are retained purely as an example.
 
 IP:     107.23.89.190
-
-URL:    [Book Catalogue App](http://107.23.89.190/)
 
 SSH:    `ssh grader@107.23.89.190 -p 2200 -i ~/.ssh/udacityLinux`
 
@@ -88,7 +88,7 @@ Werkzeug==0.11.15
 WTForms==2.1
 ```
 
-Not sure why (for later investigation) but these didn't install from the `requirements.txt` file as they weren't captured when I did ran the `pip freeze > requirements.txt` command. 
+Not sure why (for later investigation) but these didn't install from the `requirements.txt` file as they weren't captured when I did ran the `pip freeze > requirements.txt` command.
 
 - oauth2client
 - requests
@@ -100,7 +100,7 @@ Not sure why (for later investigation) but these didn't install from the `requir
 
 #### Unix
 
-Created `grader` user with `sudo` privileges 
+Created `grader` user with `sudo` privileges
 
 Created `catalog` user
 
@@ -166,20 +166,20 @@ $ sudo ufw allow 123
 
 $ sudo ufw allow 80
 
-# allow http 
+# allow http
 $ sudo ufw allow www
 
 # to delete a rule by rule number
 $ sudo ufw status numbered
 
 # delete the rule number e.g. rule number 1
-$ sudo ufw delete 1 
+$ sudo ufw delete 1
 
 # enable the firewall
 $ sudo ufw enable
 
 # verify config and status (see example below)
-$ sudo ufw status verbose 
+$ sudo ufw status verbose
 ```
 
 ```
@@ -207,8 +207,8 @@ To                         Action      From
 $ sudo nano /etc/ssh/sshd_config
 
 ############ WARNING !!!!! #################
-# Add/remove ports but be careful to only disable port 20 once you KNOW 
-# you can ssh in to the server on the new port. The LightSail console only 
+# Add/remove ports but be careful to only disable port 20 once you KNOW
+# you can ssh in to the server on the new port. The LightSail console only
 # listens to port 20 so once this port is disabled, the console is no longer able to connect.
 
 # In the file add port 2200 for ssh, save and exit
@@ -300,7 +300,7 @@ if __name__ == "__main__":
 ```
 
 ```python
-# My FlaskApp code 
+# My FlaskApp code
 from flask import Flask
 
 from FlaskApp.views.home import homePage
